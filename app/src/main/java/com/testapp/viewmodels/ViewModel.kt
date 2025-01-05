@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.testapp.service.ApiState
 import com.testapp.pojo.NewsHeadlinesPojo
 import com.testapp.service.ApiInterface
+import com.testapp.service.ArticleRepository
 import com.testapp.service.BaseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel @Inject constructor(val apiService: ApiInterface):ViewModel(){
+class ViewModel @Inject constructor(val mRepository: ArticleRepository):ViewModel(){
 
 
     private val _newsList = MutableStateFlow<ApiState<NewsHeadlinesPojo>>(ApiState.Loading)
@@ -25,7 +26,7 @@ class ViewModel @Inject constructor(val apiService: ApiInterface):ViewModel(){
 
         viewModelScope.launch {
             try {
-                val response = apiService.getTopHeadlines(
+                val response = mRepository.getArticles(
                     country = "us",
                     apiKey = BaseData.API_KEY
                 )

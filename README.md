@@ -9,3 +9,6 @@
 // Added simmer effect before loading API
 
 // Also UI Designed with Dark theme
+
+Note: Use this project in the latest version of the android studio and 
+Adjust the AGP version which is suitable for your version

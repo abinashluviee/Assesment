@@ -38,6 +38,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
 
                       composable<NewsList>{
                           NewsListScreen(viewModel){ selectedNewsData->
-                              navControllers.navigate(ScreenB(selectedNewsData.url!!,""))
+                              navControllers.navigate(ScreenB(selectedNewsData.url!!))
                           }
                       }
 
@@ -125,7 +126,7 @@ class MainActivity : ComponentActivity() {
 object  NewsList
 
 @Serializable
-data class ScreenB(var name:String,var age:String)
+data class ScreenB(var url:String)
 
 
 @Composable
@@ -247,7 +248,7 @@ fun Screen2(data:ScreenB){
                             isLoading = newProgress < 100
                         }
                     }
-                    loadUrl(data.name)
+                    loadUrl(data.url)
                 }
             },
             modifier = Modifier.fillMaxSize()

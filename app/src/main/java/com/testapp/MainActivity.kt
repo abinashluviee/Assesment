@@ -53,6 +53,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -171,7 +172,7 @@ fun NewsListScreen(viewModel: ViewModel,onClick:(selectedItem:ArticlesItem)->Uni
                         val articels = data.articles[index]
 
 
-                        NewsHeadlinesCell(articels,index == data.articles.size -1){ item ->
+                        NewsHeadlinesCell(articels){ item ->
                             onClick(item)
                         }
                     }
@@ -369,7 +370,7 @@ fun loaderNewsHeadlines(){
 
 
 @Composable
-fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedItem: ArticlesItem) -> Unit){
+fun NewsHeadlinesCell(data: ArticlesItem,onClick: (selectedItem: ArticlesItem) -> Unit){
 
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
 
@@ -387,6 +388,7 @@ fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedI
                     Row(modifier = Modifier.width((screenWidth * 0.7f))) {
                         if(data.author != "" && data.author != null) {
                             Text(
+                                modifier = Modifier.testTag("authorTestTxt"),
                                 text = "Author: ",
                                 fontSize = 13.sp,
                                 fontFamily = customFonts,
@@ -394,7 +396,8 @@ fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedI
                             )
 
                             Text(
-                                text = data.author,
+                                modifier = Modifier.testTag("authorNameTag"),
+                                text = data.author?:"",
                                 fontSize = 14.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -466,7 +469,9 @@ fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedI
         Spacer(modifier = Modifier.height(7.dp))
 
         if(data.title != ""){
-            Text(text = data.title ?: "",
+            Text(
+                modifier = Modifier.testTag("titleTestTag"),
+                text = data.title ?: "",
                 fontSize = 17.sp,
                 fontFamily = customFonts,
                 fontWeight = FontWeight.SemiBold)
@@ -475,7 +480,9 @@ fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedI
         }
 
         if(data.description != ""){
-            Text(text = data.description ?: "",
+            Text(
+                modifier = Modifier.testTag("descriptionTestTag"),
+                text = data.description ?: "",
                 fontSize = 14.sp,
                 maxLines = 2,
                 fontFamily = customFonts,
@@ -484,12 +491,11 @@ fun NewsHeadlinesCell(data: ArticlesItem,isLastIndex:Boolean,onClick: (selectedI
             Spacer(modifier = Modifier.height(10.dp))
         }
 
-        if(!isLastIndex){
-            Box(modifier = Modifier
+            Spacer(modifier = Modifier
                 .fillMaxSize()
                 .height(0.5.dp)
                 .background(color = Color.LightGray))
-        }
+
         
     }
     

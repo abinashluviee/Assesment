@@ -29,23 +29,23 @@ data class ArticlesItem(
 	val publishedAt: String? = null,
 
 	@field:SerializedName("author")
-	val author: String? = null,
+	var author: String? = null,
 
 	@field:SerializedName("urlToImage")
 	val urlToImage: String? = null,
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	var description: String? = null,
 
 	@field:SerializedName("source")
 	val source: Source? = null,
 
 	@field:SerializedName("title")
-	val title: String? = null,
+	var title: String? = null,
 
 	@field:SerializedName("url")
 	val url: String? = null,
 
 	@field:SerializedName("content")
-	val content: String? = null
+	var content: String? = null
 )
